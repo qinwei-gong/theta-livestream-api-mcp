@@ -1,12 +1,12 @@
 /**
- * list_services tool - Discover available AI models/services
+ * select-ingestor tool - Select an available Theta EdgeIngestor for livestreaming
  */
 
 import { getTECClient } from '../api/client.js';
 import type { Stream } from '../types/index.js';
 
 export const selectIngestorToolDefinition = {
-  name: 'select_ingestor',
+  name: 'select-ingestor',
   description: "Select an ingestor from Theta's available EdgeIngestor list. Returns the ingestor's server URL and stream key.",
   inputSchema: {
   },
