@@ -3,7 +3,7 @@
  */
 
 import { getTECClient } from '../api/client.js';
-import type { Ingestor, Stream, IngestorStreamInfo } from '../types/index.js';
+import type { Stream } from '../types/index.js';
 
 export const selectIngestorToolDefinition = {
   name: 'select_ingestor',
