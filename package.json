@@ -1,0 +1,44 @@
+{
+  "name": "@qinwei-gong/theta-livestream-api-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Theta EdgeCloud Livestream APIs",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "theta-livestream-api-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "theta",
+    "edgecloud",
+    "livestream",
+    "claude"
+  ],
+  "author": "Qinwei Gong",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qinwei-gong/theta-livestream-api-mcp"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "ts-node": "^10.9.0",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+}
