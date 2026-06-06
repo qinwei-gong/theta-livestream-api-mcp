@@ -25,9 +25,6 @@ const server = new McpServer(
   }
 );
 
-// TODO: Register tools once the ./tools/* modules exist. With McpServer the
-// tools/list and tools/call handlers are wired up automatically via registerTool, e.g.:
-
 server.registerTool(
   'select-ingestor',
   {
