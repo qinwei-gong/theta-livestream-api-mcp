@@ -40,6 +40,18 @@ export class TECApiClient {
   }
 
   /**
+   * Get an ingestor
+   */
+  async getIngestor(ingestorId: string): Promise<Ingestor> {
+    const response = await request<ApiResponse<Ingestor>>(
+      'GET',
+      `${TVA_BASE_URL}/ingestor/${ingestorId}`,
+      this.headers
+    );
+    return response.body;
+  }
+
+  /**
    * List all streams in user's Theta EdgeCloud dashboard
    */
   async listStreams(): Promise<Stream[]> {
@@ -49,6 +61,18 @@ export class TECApiClient {
       this.headers
     );
     return response.body.streams;
+  }
+
+  /**
+   * Get a stream
+   */
+  async getStream(streamId: string): Promise<Stream> {
+    const response = await request<ApiResponse<Stream>>(
+      'GET',
+      `${TVA_BASE_URL}/stream/${streamId}`,
+      this.headers
+    );
+    return response.body;
   }
 
   /**

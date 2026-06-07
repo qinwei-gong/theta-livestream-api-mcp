@@ -9,8 +9,11 @@
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { z } from 'zod';
 
 import { selectIngestorToolDefinition, selectIngestor } from './tools/select-ingestor.js';
+import { listStreamsToolDefinition, listStreams } from './tools/list-streams.js';
+import { getPlaybackUrlToolDefinition, getPlaybackUrl } from './tools/get-playback-url.js';
 
 // Create the MCP server
 const server = new McpServer(
@@ -26,13 +29,43 @@ const server = new McpServer(
 );
 
 server.registerTool(
-  'select-ingestor',
+  selectIngestorToolDefinition.name,
   {
     description: selectIngestorToolDefinition.description,
-    inputSchema: {},
+    inputSchema: {
+      stream_id: z.string().optional().describe('ID of the livestream'),
+    },
   },
-  async () => {
-    const result = await selectIngestor();
+  async ({ stream_id }) => {
+    const result = await selectIngestor({ stream_id });
+    return { content: [{ type: 'text', text: result }] };
+  }
+);
+
+server.registerTool(
+  listStreamsToolDefinition.name,
+  {
+    description: listStreamsToolDefinition.description,
+    inputSchema: {
+      status: z.enum(['on', 'off']).optional().describe('Stream status (either "on" or "off")'),
+    },
+  },
+  async ({ status }) => {
+    const result = await listStreams({ status });
+    return { content: [{ type: 'text', text: result }] };
+  }
+);
+
+server.registerTool(
+  getPlaybackUrlToolDefinition.name,
+  {
+    description: getPlaybackUrlToolDefinition.description,
+    inputSchema: {
+      ingestor_id: z.string().describe('ID of the Theta EdgeIngestor (returned from select-ingestor tool)'),
+    },
+  },
+  async ({ ingestor_id }) => {
+    const result = await getPlaybackUrl({ ingestor_id });
     return { content: [{ type: 'text', text: result }] };
   }
 );

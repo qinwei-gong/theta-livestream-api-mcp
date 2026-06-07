@@ -33,7 +33,6 @@ export interface Stream {
   id: string;
   name: string;
   status: 'on' | 'off';
-  player_uri: string;
 }
 
 export interface IngestorListResponse {
