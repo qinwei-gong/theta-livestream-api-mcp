@@ -38,7 +38,8 @@ export async function selectIngestor(): Promise<string> {
   let output = `Found an available ingestor:\n\n`;
   output += `### Stream Server: ${streamInfo.stream_server}\n`;
   output += `### Stream Key: ${streamInfo.stream_key}\n`;
-  output += `Please copy/paste them into your streaming software (e.g. OBS) and start your livestream.\n\n`;
+  output += `Please copy/paste them into your streaming software (e.g. OBS) and start your livestream.\n`;
+  output += `(The above server/key pair will expire in 5 min)\n`;
   
   return output;  
 }

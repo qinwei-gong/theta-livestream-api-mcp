@@ -67,8 +67,6 @@ async function main() {
   // Start the server with stdio transport
   const transport = new StdioServerTransport();
   await server.connect(transport);
-
-  console.error('Theta Livestream API MCP Server running');
 }
 
 main().catch((error) => {

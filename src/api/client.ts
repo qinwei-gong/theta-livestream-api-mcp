@@ -133,7 +133,7 @@ export async function getTECClient(): Promise<TECApiClient> {
       `${TEC_BASE_URL}/project/${projectId}/tva_info`,
       headers
     );
-    const {tva_id, tva_key} = response.body;
+    const {tva_id, tva_secret: tva_key} = response.body;
 
     TECClientInstance = new TECApiClient({ tva_id, tva_key });
   }

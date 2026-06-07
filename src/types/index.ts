@@ -11,7 +11,7 @@ export interface ApiResponse<T> {
 // TVA info response
 export interface TVAInfoResponse {
   tva_id: string;
-  tva_key: string;
+  tva_secret: string;
 }
 
 export interface Ingestor {
