@@ -79,8 +79,8 @@ server.registerTool(
       ingestor_id: z.string().length(42).describe('ID of the previously selected ingestor'),
     },
   },
-  async ({ ingestor_id }) => {
-    const result = await cancelIngestor({ ingestor_id });
+  async ({ ingestor_id }, extra) => {
+    const result = await cancelIngestor({ ingestor_id }, extra);
     return { content: [{ type: 'text', text: result }] };
   }
 );
