@@ -9,7 +9,8 @@ Theta EdgeCloud runs livestreams on a decentralized network of **EdgeIngestors**
 1. **select-ingestor** — picks an available ingestor and returns its stream server, stream key, and ingestor ID. If you don't pass a stream, it reuses an existing idle stream or creates one for you.
 2. Copy the server URL and stream key into OBS (or any RTMP encoder) and start broadcasting.
 3. **get-playback-url** — returns the playback URL so viewers can watch.
-4. **cancel-ingestor** — releases the ingestor when you're done.
+
+When you stop the livestream (e.g. from OBS), the ingestor is released automatically — you don't need to do anything. The optional **cancel-ingestor** tool is only useful if you selected an ingestor but then decided *not* to start streaming: calling it releases the ingestor immediately instead of leaving it idle until the selection expires.
 
 ## Tools
 
@@ -18,7 +19,7 @@ Theta EdgeCloud runs livestreams on a decentralized network of **EdgeIngestors**
 | `list-streams` | List your livestreams in Theta EdgeCloud. | `status` *(optional)* — filter by `"on"` or `"off"`. |
 | `select-ingestor` | Select an available EdgeIngestor and return its server URL and stream key. | `stream_id` *(optional)* — the stream to attach; otherwise an idle stream is reused or created. |
 | `get-playback-url` | Get the playback URL of a livestream. | `ingestor_id` — the ingestor ID returned by `select-ingestor`. |
-| `cancel-ingestor` | Release a previously selected EdgeIngestor. | `ingestor_id` — the ingestor ID to release. |
+| `cancel-ingestor` | Release a selected EdgeIngestor *before* starting a livestream. Optional — see [How it works](#how-it-works). | `ingestor_id` — the ingestor ID to release. |
 
 > **Note:** The server/key pair returned by `select-ingestor` expires after 5 minutes if you don't start streaming. You can only run one livestream at a time.
 
@@ -70,7 +71,7 @@ Once configured, just talk to your MCP client in plain language:
 - *"Start a livestream on Theta"* → calls `select-ingestor` and hands you the server URL and stream key for OBS.
 - *"What's the playback URL?"* → calls `get-playback-url`.
 - *"List my streams"* → calls `list-streams`.
-- *"I'm done streaming"* → calls `cancel-ingestor`.
+- *"Actually, never mind — release that ingestor"* (before going live) → calls `cancel-ingestor`.
 
 ## Development
 
