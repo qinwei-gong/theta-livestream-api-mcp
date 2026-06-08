@@ -50,7 +50,7 @@ export async function selectIngestor(input: SelectIngestorInput): Promise<string
 
   const streamInfo = await client.selectIngestor(ingestor.id, stream.id);
   
-  let output = `Found an available ingestor:\n\n`;
+  let output = `Found an available ingestor:\n`;
   output += `### Stream Server: ${streamInfo.stream_server}\n`;
   output += `### Stream Key: ${streamInfo.stream_key}\n`;
   output += `### Ingestor ID: ${ingestor.id}\n`;

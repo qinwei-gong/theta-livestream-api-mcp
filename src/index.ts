@@ -12,6 +12,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 
 import { selectIngestorToolDefinition, selectIngestor } from './tools/select-ingestor.js';
+import { cancelIngestorToolDefinition, cancelIngestor } from './tools/cancel-ingestor.js';
 import { listStreamsToolDefinition, listStreams } from './tools/list-streams.js';
 import { getPlaybackUrlToolDefinition, getPlaybackUrl } from './tools/get-playback-url.js';
 
@@ -66,6 +67,20 @@ server.registerTool(
   },
   async ({ ingestor_id }) => {
     const result = await getPlaybackUrl({ ingestor_id });
+    return { content: [{ type: 'text', text: result }] };
+  }
+);
+
+server.registerTool(
+  cancelIngestorToolDefinition.name,
+  {
+    description: cancelIngestorToolDefinition.description,
+    inputSchema: {
+      ingestor_id: z.string().length(42).describe('ID of the previously selected ingestor'),
+    },
+  },
+  async ({ ingestor_id }) => {
+    const result = await cancelIngestor({ ingestor_id });
     return { content: [{ type: 'text', text: result }] };
   }
 );

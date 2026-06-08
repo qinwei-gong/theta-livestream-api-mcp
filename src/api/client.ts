@@ -113,6 +113,18 @@ export class TECApiClient {
     );
     return response.body;
   }
+
+  /**
+   * Cancel selection of a Theta EdgeIngestor
+   */
+  async cancelIngestor(id: string): Promise<string> {
+    const response = await request<ApiResponse<{ status: string }>>(
+      'PUT',
+      `${TVA_BASE_URL}/ingestor/${id}/unselect`,
+      this.headers,
+    );
+    return response.body.status;
+  }
 }
 
 async function request<T>(
