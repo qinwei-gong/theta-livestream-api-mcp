@@ -18,8 +18,20 @@ export async function getPlaybackUrl(input: GetPlaybackUrlInput): Promise<string
 
   const ingestor = await client.getIngestor(input.ingestor_id);
   if (!ingestor.playback_url) {
-    return `This ingestor doesn't have any livestreams at the moment.`;
+    return `There's no livestream from this ingestor now.`;
+  }
+
+  let output = `The stream's playback url is ${ingestor.playback_url}\n\n`;
+
+  try {
+    const streamId = await client.getIngestorStreamId(input.ingestor_id);
+    const stream = await client.getStream(streamId);
+    if (stream.status === 'off') {
+      output += `But this livestream hasn't started yet.\n`;
+    }
+  } catch {
+    output = `Seems that something is wrong with this ingestor.\n`;
   }
   
-  return `The stream's playback url is ${ingestor.playback_url}\n\n`;
+  return output;
 }

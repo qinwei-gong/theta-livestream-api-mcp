@@ -10,6 +10,7 @@ import type {
   IngestorStreamInfo,
   IngestorListResponse,
   StreamListResponse,
+  IngestorStreamResponse,
   McpConfig,
 } from '../types/index.js';
 
@@ -49,6 +50,18 @@ export class TECApiClient {
       this.headers
     );
     return response.body;
+  }
+  
+  /**
+   * Get stream id the ingestor is working on
+   */
+  async getIngestorStreamId(ingestorId: string): Promise<string> {
+    const response = await request<ApiResponse<IngestorStreamResponse>>(
+      'GET',
+      `${TVA_BASE_URL}/ingestor/${ingestorId}/on_stream_id`,
+      this.headers
+    );
+    return response.body.stream_id;
   }
 
   /**

@@ -45,6 +45,10 @@ export interface StreamListResponse {
   total_count: number;
 }
 
+export interface IngestorStreamResponse {
+  stream_id: string;
+}
+
 export interface McpConfig {
   tva_id: string;
   tva_key: string;

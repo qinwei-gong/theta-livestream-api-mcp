@@ -29,20 +29,6 @@ const server = new McpServer(
 );
 
 server.registerTool(
-  selectIngestorToolDefinition.name,
-  {
-    description: selectIngestorToolDefinition.description,
-    inputSchema: {
-      stream_id: z.string().optional().describe('ID of the livestream'),
-    },
-  },
-  async ({ stream_id }) => {
-    const result = await selectIngestor({ stream_id });
-    return { content: [{ type: 'text', text: result }] };
-  }
-);
-
-server.registerTool(
   listStreamsToolDefinition.name,
   {
     description: listStreamsToolDefinition.description,
@@ -57,11 +43,25 @@ server.registerTool(
 );
 
 server.registerTool(
+  selectIngestorToolDefinition.name,
+  {
+    description: selectIngestorToolDefinition.description,
+    inputSchema: {
+      stream_id: z.string().optional().describe('ID of the livestream'),
+    },
+  },
+  async ({ stream_id }) => {
+    const result = await selectIngestor({ stream_id });
+    return { content: [{ type: 'text', text: result }] };
+  }
+);
+
+server.registerTool(
   getPlaybackUrlToolDefinition.name,
   {
     description: getPlaybackUrlToolDefinition.description,
     inputSchema: {
-      ingestor_id: z.string().describe('ID of the Theta EdgeIngestor (returned from select-ingestor tool)'),
+      ingestor_id: z.string().length(42).describe('ID of the Theta EdgeIngestor (returned from select-ingestor tool)'),
     },
   },
   async ({ ingestor_id }) => {
