@@ -19,7 +19,7 @@ When you stop the livestream (e.g. from OBS), the ingestor is released automatic
 | `list-streams` | List your livestreams in Theta EdgeCloud. | `status` *(optional)* — filter by `"on"` or `"off"`. |
 | `select-ingestor` | Select an available EdgeIngestor and return its server URL and stream key. | `stream_id` *(optional)* — the stream to attach; otherwise an idle stream is reused or created. |
 | `get-playback-url` | Get the playback URL of a livestream. | `ingestor_id` — the ingestor ID returned by `select-ingestor`. |
-| `cancel-ingestor` | Release a selected EdgeIngestor *before* starting a livestream. Optional — see [How it works](#how-it-works). | `ingestor_id` — the ingestor ID to release. |
+| `cancel-ingestor` | Release a selected EdgeIngestor if you *NO LONGER* want to start the livestream. Optional — see [How it works](#how-it-works). | `ingestor_id` — the ingestor ID to release. |
 
 > **Note:** The server/key pair returned by `select-ingestor` expires after 5 minutes if you don't start streaming. You can only run one livestream at a time.
 
@@ -56,10 +56,7 @@ Edit `claude_desktop_config.json` (Settings → Developer → Edit Config):
 ### Claude Code
 
 ```bash
-claude mcp add theta-livestream \
-  --env THETA_PROJECT_ID=your-project-id-here \
-  --env THETA_API_KEY=your-api-key-here \
-  -- npx -y @qinwei-gong/theta-livestream-api-mcp
+claude mcp add theta-livestream -e THETA_PROJECT_ID=your-project-id-here -e THETA_API_KEY=your-api-key-here -- npx -y @qinwei-gong/theta-livestream-api-mcp
 ```
 
 The same `command`/`args`/`env` shape works for other MCP clients (Codex, Cursor, etc.).
